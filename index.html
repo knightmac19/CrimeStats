@@ -49,28 +49,38 @@
           
           <div class="col-md-3 text-center">
             <div class="btn-group">
-              <button id="year" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Year
-              </button>
-              <div class="dropdown-menu dropdown-year" aria-labelledby="dropdownMenu2"></div>
+              <input type="readonly" id="input-year" class="form-control" placeholder="Add Year" aria-describedby="year">
+              <div class="input-group-append">
+                <button id="year" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Year
+                </button>
+                <div class="dropdown-menu dropdown-year" aria-labelledby="dropdownMenu2"></div>
+              </div>
+              
             </div>
           </div>
 
           <div class="col-md-3 text-center">
             <div class="btn-group">
-              <button id="crime-type" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Crime Type
-              </button>
-              <div class="dropdown-menu dropdown-crime-type" aria-labelledby="dropdownMenu2"></div>
+              <input type="readonly" id="input-crime" class="form-control" placeholder="Add Crime" aria-describedby="crime-type">
+              <div class="input-group-append">
+                <button id="crime-type" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Crime Type
+                </button>
+                <div class="dropdown-menu dropdown-crime-type" aria-labelledby="dropdownMenu2"></div>
+              </div>
             </div>
           </div>
 
           <div class="col-md-3 text-center">
             <div class="btn-group">
-              <button id="state" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                State
-              </button>
-              <div class="dropdown-menu dropdown-state" aria-labelledby="dropdownMenu2"></div>
+              <input type="readonly" id="input-state" class="form-control" placeholder="Add State" aria-describedby="state">
+              <div class="input-group-append">
+                <button id="state" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  State
+                </button>
+                <div class="dropdown-menu dropdown-state" aria-labelledby="dropdownMenu2"></div>
+              </div>
             </div>
           </div>
 
@@ -84,12 +94,12 @@
       <!-- end content container -->
       </div>
       <br>
-      <div class="container content">
+      <div class="container content map-container">
         <!-- row for mapbox to appear with headline stats on the side -->
         <div class="row">
           <!-- column for crime stats -->
           <div class="col-md-3">
-            <div class="crimeData">
+            <div class="crime-data">
               <h4 id="crime-header">Some Data</h4>
               <p id="crime">Some text</p>
               <p id="crime-per-capita">Some text</p>
