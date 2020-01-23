@@ -6,7 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crimes by State</title>
     
+    
+
+    <!--Mapbox html head scripts & links-->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   
+    <!-- Project-specific stylesheets -->
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -19,17 +28,17 @@
               <p class="lead">Powered by Mapbox & the National Incident-Based Reporting System (NIBRS)</p>
             </div>
 
-            <!-- access token input box here -->
-            <div class="col-md-4">
+            <!-- open access token input box -->
+            <div class="col-md-4 token-col">
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Add Mapbox Access Token" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" id="mapbox-token" class="form-control" placeholder="Add Mapbox Access Token" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-secondary" type="button" id="add-button">Add</button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- access token input box here -->
+          <!-- close access token input box -->
 
         </div>
       </div>
@@ -37,60 +46,73 @@
       <div class="container content">
         <!-- Row for dropdown menus for year start / end, type, state, generate -->
         <div class="row button-row">
-          <div class="col">
-            <div class="col">
-              <div class="btn-group">
-                <button id="year" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Year
-                </button>
-                <div class="dropdown-menu dropdown-year" aria-labelledby="dropdownMenu2"></div>
-              </div>
+          
+          <div class="col-md-3 text-center">
+            <div class="btn-group">
+              <button id="year" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Year
+              </button>
+              <div class="dropdown-menu dropdown-year" aria-labelledby="dropdownMenu2"></div>
             </div>
           </div>
 
-          <!-- <div class="col">
-            <div class="col">
-              <div class="btn-group">
-                <button id="year-end" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Year End
-                </button>
-                <div class="dropdown-menu dropdown-year-end" aria-labelledby="dropdownMenu2"></div>
-              </div>
-            </div>
-          </div> -->
-
-          <div class="col">
+          <div class="col-md-3 text-center">
             <div class="btn-group">
-              <button id="crime-type" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button id="crime-type" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Crime Type
               </button>
               <div class="dropdown-menu dropdown-crime-type" aria-labelledby="dropdownMenu2"></div>
             </div>
           </div>
 
-          <div class="col">
-            <div class="col">
-              <div class="btn-group">
-                <button id="state" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  State
-                </button>
-                <div class="dropdown-menu dropdown-state" aria-labelledby="dropdownMenu2"></div>
-              </div>
+          <div class="col-md-3 text-center">
+            <div class="btn-group">
+              <button id="state" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                State
+              </button>
+              <div class="dropdown-menu dropdown-state" aria-labelledby="dropdownMenu2"></div>
             </div>
-
           </div>
 
-          <div class="col">
-            <button type="button" id="generate-btn" class="btn btn-sm btn-secondary">Generate</button>
+          <div class="col-md-3 text-center">
+            <button type="button" id="generate-btn" class="btn btn-secondary">Generate</button>
           </div>
+
+          <!-- close button row -->
         </div>
-        
+
+      <!-- end content container -->
+      </div>
+      <br>
+      <div class="container content">
         <!-- row for mapbox to appear with headline stats on the side -->
         <div class="row">
+          <!-- column for crime stats -->
+          <div class="col-md-3">
+            <div class="crimeData">
+              <h4 id="crime-header">Some Data</h4>
+              <p id="crime">Some text</p>
+              <p id="crime-per-capita">Some text</p>
+              <p id="us-per-capita">Some text</p>
+              <p id="rating">Some text</p>
+            </div>
+          </div>
 
+          <!-- column for mapbox map -->
+          <div class="col-md-9">
+            <div id="map"></div>
+          </div>
+          
         </div>
-
       </div>
+
+      
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
       <footer id="footer-parent">
         <div id="copy-box">Copyright &copy; 2020 Patrick Dunn</div>
@@ -103,12 +125,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!-- Bootstrap scripts -->
 
-    <!-- Personally-created scripts -->
+    <!-- project-specific scripts -->
     <script src="assets/scripts/key.js"></script>
     <script src="assets/scripts/states.js"></script>
     <script src="assets/scripts/years.js"></script>
     <script src="assets/scripts/crimes.js"></script>
     <script src="assets/scripts/script.js"></script>
-    <!-- Personally-created scripts -->
+    <!-- project-specific scripts -->
 </body>
 </html>

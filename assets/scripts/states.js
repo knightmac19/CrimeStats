@@ -10,6 +10,13 @@
 */
 
 var statesArr = [
+  {
+    state: "All",
+    populaton: 327167434,
+    centerLat:39.5,
+    centerLong:-98.35,
+    zoom:3
+  },
     {
       capital: "Montgomery",
       state: "Alabama",

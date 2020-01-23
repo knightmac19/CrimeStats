@@ -10,10 +10,13 @@ body {
 .lead {
     color:black;
 }
+.token-col {
+    border-left: 1px solid #6FC6E8;
+}
 
 .content {
     width:100%;
-    border: 2px solid white;
+    border-bottom: 2px solid #e8956f;
     color:#6FC6E8;
     font-weight:600;
     margin: 0 auto;
@@ -21,9 +24,10 @@ body {
 }
 .button-row {
     padding-top:15px;
+    padding-bottom:15px;
 }
 
-.btn-sm {
+.dropdown-toggle, #generate-btn {
     color:#6FC6E8;
 }
 
@@ -33,3 +37,5 @@ body {
     max-height: 200px;
     overflow-x: hidden;
 }
+
+
