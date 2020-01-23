@@ -29,14 +29,12 @@ $(document).ready(function() {
         location.reload(true);
         
     });
-
-
     
     // populate 'year' dropdown function
     $("#year").on("click", function() {
         $(".dropdown-year").empty();
         for (var i = 0; i < yearsArr.length; i++) {
-            var year = $("<button>").addClass("dropdown-item");
+            var year = $("<button>").addClass("dropdown-item drop-year");
             year.attr({"type": "button", "data-index-year": i});
             year.text(yearsArr[i]);
             $(".dropdown-year").append(year);
@@ -47,7 +45,7 @@ $(document).ready(function() {
     $("#crime-type").on("click", function() {
         $(".dropdown-crime-type").empty();
         for (var i = 0; i < crimesArr.length; i++) {
-            var crime = $("<button>").addClass("dropdown-item");
+            var crime = $("<button>").addClass("dropdown-item drop-crime");
             crime.attr({"type": "button", "data-index-crime": i});
             crime.text(crimesArr[i].label);
             $(".dropdown-crime-type").append(crime);
@@ -58,20 +56,37 @@ $(document).ready(function() {
     $("#state").on("click", function() {
         $(".dropdown-state").empty();
         for (var i = 0; i < statesArr.length; i++) {
-            var state = $("<button>").addClass("dropdown-item");
+            var state = $("<button>").addClass("dropdown-item drop-state");
             state.attr({"type": "button", "data-index-state": i});
             state.text(statesArr[i].state);
             $(".dropdown-state").append(state);
         }
     });
 
-    
-    // Trying to populate input fields with dropdown selection
-    var inputYear = $("#input-year");
-    $("#year").on("click", function(){
-        inputYear.html($(this).attr("data-index-year"));
-        console.log(inputYear)
+    $(document).on("click", ".drop-year", function() {
+        var indexValue = $(this).attr("data-index-year")
+        $("#input-year").val(yearsArr[indexValue]);
+        console.log(yearsArr[indexValue]);
     });
+
+    $(document).on("click", ".drop-crime", function() {
+        var crimeValue = $(this).attr("data-index-crime")
+        $("#input-crime").val(crimesArr[crimeValue].label);
+        console.log(crimesArr[crimeValue].label);
+    });
+
+    $(document).on("click", ".drop-state", function() {
+        var stateValue = $(this).attr("data-index-state")
+        $("#input-state").val(statesArr[stateValue].state);
+        console.log(statesArr[stateValue].state);
+    });
+
+    // Trying to populate input fields with dropdown selection
+    // var inputYear = $("#input-year");
+    // $("#year").on("click", function(){
+    //     inputYear.html($(this).attr("data-index-year"));
+    //     console.log(inputYear)
+    // });
     
     
     
