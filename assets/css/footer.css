@@ -1,0 +1,31 @@
+#footer-parent {
+    background-color:#e8956f;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:30px;
+    border-top: 3px solid #6FC6E8;
+    margin-top:20px;
+    z-index:4;
+}
+
+#copy-box{
+    color:black;
+    background-color:#e8956f;
+    font-size:12px;
+    text-align:center;
+    
+    width:300px;
+    
+    padding-top:3px;
+    padding-right:0px;
+    padding-bottom:3px;
+    padding-left:0px;
+
+    margin-top:0px;
+    margin-right:auto;
+    margin-bottom:0px;
+    margin-left:auto;
+    
+    font-family:'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+}

@@ -1,0 +1,35 @@
+body {
+    background-image: url("randomGrey.png");
+    
+}
+.jumbotron {
+    background-color:#e8956f;
+    color:black;
+    margin-bottom:16px;
+}
+.lead {
+    color:black;
+}
+
+.content {
+    width:100%;
+    border: 2px solid white;
+    color:#6FC6E8;
+    font-weight:600;
+    margin: 0 auto;
+    
+}
+.button-row {
+    padding-top:15px;
+}
+
+.btn-sm {
+    color:#6FC6E8;
+}
+
+.dropdown-menu {
+    background-color:#e8956f;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
