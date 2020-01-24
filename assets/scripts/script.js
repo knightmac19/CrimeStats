@@ -1,5 +1,8 @@
 $(document).ready(function() {
-    
+    var yearValue;
+    var crimeValue;
+    var stateValue;
+
     var storageKey = localStorage.getItem("mapboxToken");
     console.log(storageKey);
     
@@ -64,51 +67,44 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".drop-year", function() {
-        var indexValue = $(this).attr("data-index-year")
-        $("#input-year").val(yearsArr[indexValue]);
-        console.log(yearsArr[indexValue]);
+        yearValue = $(this).attr("data-index-year")
+        $("#input-year").val(yearsArr[yearValue]);
+        localStorage.setItem("year", yearsArr[yearValue]);
+        // console.log(yearsArr[yearValue]);
     });
+    
 
     $(document).on("click", ".drop-crime", function() {
-        var crimeValue = $(this).attr("data-index-crime")
+        crimeValue = $(this).attr("data-index-crime")
         $("#input-crime").val(crimesArr[crimeValue].label);
-        console.log(crimesArr[crimeValue].label);
+        localStorage.setItem("crime", crimesArr[crimeValue].apiCall);
+        // console.log(crimesArr[crimeValue].label);
     });
+    // pass in crimesArr[crimeValue].apiCall
 
     $(document).on("click", ".drop-state", function() {
-        var stateValue = $(this).attr("data-index-state")
+        stateValue = $(this).attr("data-index-state")
         $("#input-state").val(statesArr[stateValue].state);
-        console.log(statesArr[stateValue].state);
+        localStorage.setItem("abbreviation", statesArr[stateValue].abbreviation);
+        // console.log(statesArr[stateValue].state);
     });
-
-    // Trying to populate input fields with dropdown selection
-    // var inputYear = $("#input-year");
-    // $("#year").on("click", function(){
-    //     inputYear.html($(this).attr("data-index-year"));
-    //     console.log(inputYear)
-    // });
-    
-    
-    
+    // pass in statesArr[stateValue].abbreviation
 
 
-
-    // $("#generate-btn").on("click", function() {
-    //     var thisStateIndex = $(this).attr("data-index-state");
-    //     console.log(statesArr[thisStateIndex].abbreviation);
-    //     console.log(statesArr[thisStateIndex].centerLong);
-    //     console.log(statesArr[thisStateIndex].centerLat);
-    // });
     
-/*
+
 
     // making map & text appear on #generate-btn click
     $("#generate-btn").on("click", function() {
         $(".map-container").css("visibility", "visible");
 
-        var thisYearIndex = $(this).attr("data-index-year");
-        var thisCrimeIndex = $(this).attr("data-index-crime");
-        var thisStateIndex = $(this).attr("data-index-state");
+        var abbreviation = localStorage.getItem("abbreviation");
+        var crime = localStorage.getItem("crime");
+        var year = localStorage.getItem("year");
+        console.log(year);
+        console.log(abbreviation);
+        console.log(crime);
+        
         
         // mapbox API call
         mapboxgl.accessToken = storageKey;
@@ -117,13 +113,15 @@ $(document).ready(function() {
         var map = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
-            center: [statesArr[thisStateIndex].centerLong, statesArr[thisStateIndex].centerLat], // starting position [lng, lat]
-            zoom: statesArr[thisStateIndex].zoom // starting zoom
+            center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
+            zoom: statesArr[stateValue].zoom // starting zoom
         });
-
+        map
+        
+        
         // writing FBI API call
         var fbi = function(crime, abbreviation) {
-            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offender/states/" + abbreviation + "/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv"
+            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offender/states/" + abbreviation + "/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
 
             $.ajax({
                 url:queryURL,
@@ -131,8 +129,9 @@ $(document).ready(function() {
             }).done(function(response) {
                 
 
-                map
 
+                
+                /*
                 // Cluster Layer Begin -------------------------------
                 map.addSource("homicides", {
                     type: "geojson",
@@ -225,17 +224,20 @@ $(document).ready(function() {
                     map.getCanvas().style.cursor = '';
                 });
                 // Cluster Layer End ------------------------
+                */
 
                 console.log(abbreviation + " state ---------------");
+                console.log(crime + "---------------------------------");
                 console.log(response);
             });
         }
-        fbi(thisCrimeIndex.apiCall,thisStateIndex.abbreviation);
+        fbi(crime,abbreviation);
+        
         
     });
 
 
-*/
+
 
 
 

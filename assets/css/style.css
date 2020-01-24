@@ -2,6 +2,13 @@ body {
     background-image: url("randomGrey.png");
     
 }
+#map { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%
+}
 .jumbotron {
     background-color:#e8956f;
     color:black;
@@ -39,6 +46,10 @@ body {
 }
 .map-container {
     visibility: hidden;
+    height:700px;
+}
+.tall {
+    height:400px;
 }
 
 
