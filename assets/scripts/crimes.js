@@ -12,7 +12,7 @@ var crimesArr = [
         apiCall: "burglary",
     },
     {
-        label: "Grand Theft Auto",
+        label: "Motor Vehicle Theft",
         apiCall: "motor-vehicle-theft",
     },
     {

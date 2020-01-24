@@ -78,14 +78,17 @@ $(document).ready(function() {
         crimeValue = $(this).attr("data-index-crime")
         $("#input-crime").val(crimesArr[crimeValue].label);
         localStorage.setItem("crime", crimesArr[crimeValue].apiCall);
+        localStorage.setItem("crimeName", crimesArr[crimeValue].label);
         // console.log(crimesArr[crimeValue].label);
     });
     // pass in crimesArr[crimeValue].apiCall
+    
 
     $(document).on("click", ".drop-state", function() {
         stateValue = $(this).attr("data-index-state")
         $("#input-state").val(statesArr[stateValue].state);
         localStorage.setItem("abbreviation", statesArr[stateValue].abbreviation);
+        localStorage.setItem("stateName", statesArr[stateValue].state);
         // console.log(statesArr[stateValue].state);
     });
     // pass in statesArr[stateValue].abbreviation
@@ -100,10 +103,18 @@ $(document).ready(function() {
 
         var abbreviation = localStorage.getItem("abbreviation");
         var crime = localStorage.getItem("crime");
-        var year = localStorage.getItem("year");
-        console.log(year);
-        console.log(abbreviation);
-        console.log(crime);
+        var yearString = localStorage.getItem("year");
+        var year = parseInt(yearString);
+        var crimeName = localStorage.getItem("crimeName");
+        var stateName = localStorage.getItem("stateName");
+        // console.log(year);
+        // console.log(abbreviation);
+        // console.log(crime);
+        // console.log(crimeName);
+        // console.log(stateName);
+        // https://api.usa.gov/crime/fbi/sapi/api/nibrs/larceny/offense/states/CO/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv
+        // https://api.usa.gov/crime/fbi/sapi/api/nibrs/larceny/offender/states/CO/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv
+
         
         
         // mapbox API call
@@ -116,19 +127,72 @@ $(document).ready(function() {
             center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
             zoom: statesArr[stateValue].zoom // starting zoom
         });
-        map
+        // map
         
         
         // writing FBI API call
         var fbi = function(crime, abbreviation) {
-            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offender/states/" + abbreviation + "/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offense/states/" + abbreviation + "/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
 
             $.ajax({
                 url:queryURL,
                 method:"GET"
             }).done(function(response) {
+                console.log(abbreviation + " state ---------------");
+                console.log(crime + "---------------------------------");
+                
+                
+                console.log(response);
+                
+                var queriedYear = response.data.filter(function(val) {
+                    return val.data_year === year;
+                });
+                console.log(queriedYear);
+                var finalArray = queriedYear.filter(function(val) {
+                    return val.key === "Offense Count";
+                });
+                console.log(finalArray);
                 
 
+
+
+                // set text content here
+                var crimeHeader = $("#crime-header");
+                var crimeNum = $("#crime-num");
+                var perCapita = $("#crime-per-capita");
+                var natlCapita = $("#us-per-capita");
+                var rating = $("#rating");
+
+                crimeHeader.text(stateName + " " + year);
+
+                if (crimeName === "Burglary") {
+                    crimeNum.text("Burglaries" + " numberTBD");
+
+                } else if (crimeName === "Larceny") {
+                    crimeNum.text("Larcenies" + " numberTBD");
+
+                } else if (crimeName === "Robbery") {
+                    crimeNum.text("Robberies" + " numberTBD");
+
+                } else {
+                    crimeNum.text(crimeName + "s" + " numberTBD");
+                }
+
+
+                
+
+                
+                
+
+                
+                
+                // var abbreviation = localStorage.getItem("abbreviation");
+                // var crime = localStorage.getItem("crime");
+                // var year = localStorage.getItem("year");
+                // var crimeName = localStorage.getItem("crimeName");
+                // var stateName = localStorage.getItem("stateName");
+
+                // var data = response.data;
 
                 
                 /*
@@ -226,9 +290,7 @@ $(document).ready(function() {
                 // Cluster Layer End ------------------------
                 */
 
-                console.log(abbreviation + " state ---------------");
-                console.log(crime + "---------------------------------");
-                console.log(response);
+                
             });
         }
         fbi(crime,abbreviation);
