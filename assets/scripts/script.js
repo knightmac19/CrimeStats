@@ -118,16 +118,16 @@ $(document).ready(function() {
         
         
         // mapbox API call
-        // mapboxgl.accessToken = storageKey;
+        mapboxgl.accessToken = storageKey;
             
-        // // mapbox API call
-        // var map = new mapboxgl.Map({
-        //     container: 'map', // container id
-        //     style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
-        //     center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
-        //     zoom: statesArr[stateValue].zoom // starting zoom
-        // });
-        // map
+        // mapbox API call
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
+            center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
+            zoom: statesArr[stateValue].zoom // starting zoom
+        });
+        map
         
         
         
@@ -150,7 +150,14 @@ $(document).ready(function() {
                 // var natlCapita = $("#us-per-capita");
                 // var rating = $("#rating");
                 
-
+                var errorMessage = function() {
+                    crimeHeader.text(stateName + ", " + year);
+                    crimeHeader.css("color", "white");
+                    crimeNum.text("Burglaries: N/A");
+                    perCapita.text("Burglaries per 100,000: N/A");
+                    availableData.text("Data Not Available");
+                };
+                console.log(stateName);
                 if (stateName === "Alaska" ||
                     stateName === "California" ||
                     stateName === "District of Columbia" ||
@@ -160,12 +167,7 @@ $(document).ready(function() {
                     stateName === "New York" ||
                     stateName === "North Carolina" ||
                     stateName === "Wyoming") {
-
-                        crimeHeader.text(stateName + ", " + year);
-                        crimeHeader.css("color", "white");
-                        crimeNum.text("Burglaries: N/A");
-                        perCapita.text("Burglaries per 100,000: N/A");
-                        availableData.text("Data Not Available");
+                        errorMessage();
                 } else {
                     console.log(response);
                     
@@ -175,20 +177,15 @@ $(document).ready(function() {
                     var queriedYear = response.data.filter(function(val) {
                         return val.data_year === year;
                     });
+
                     console.log(queriedYear);
                     var finalArray = queriedYear.filter(function(val) {
                         return val.key === "Offense Count";
                     });
                     console.log(finalArray);
 
-                    
                     var count = parseInt(finalArray[0].value);
                     var hundredThousand = ((count / statesArr[stateValue].population) * 100000).toFixed(2);
-
-
-
-                    
-                    
 
                     crimeHeader.text(stateName + ", " + year);
                     crimeHeader.css("color", "white");
@@ -210,38 +207,28 @@ $(document).ready(function() {
                         crimeNum.text(crimeName + "s: " + count);
                         perCapita.text(crimeName + "s per 100,000: " + hundredThousand);
                     }
-
-                    console.log(statesArr[stateValue].population);
+                    console.log(statesArr[stateValue].population);   
                 }
 
-
-
-
+                var clusterYearQuery = clusterArray.filter(function(val) {
+                    return val.clusterYear === year;
+                });
+                var clusterCrimeQuery = clusterYearQuery.filter(function(val) {
+                    return val.clusterCrime === crimeName;
+                });
+                // console.log("cluster year query -----------------");
+                // console.log(clusterYearQuery);
+                // console.log("cluster crime query -----------------");
+                // console.log(clusterCrimeQuery);
+                // console.log("cluster crime query data -----------------");
+                // console.log(clusterCrimeQuery[0].clusterData);
+                var finalData = clusterCrimeQuery[0].clusterData;
                 
-                
-                
-
-                
-
-                
-                
-
-                
-                
-                // var abbreviation = localStorage.getItem("abbreviation");
-                // var crime = localStorage.getItem("crime");
-                // var year = localStorage.getItem("year");
-                // var crimeName = localStorage.getItem("crimeName");
-                // var stateName = localStorage.getItem("stateName");
-
-                // var data = response.data;
-
-                
-                /*
                 // Cluster Layer Begin -------------------------------
                 map.addSource("homicides", {
                     type: "geojson",
-                    data: "https://knightmac19.github.io/geoJSON/homicides.geojson",
+                    // "https://knightmac19.github.io/geoJSON/homicides.geojson"
+                    data: finalData,
                     cluster: true,
                     clusterMaxZoom: 14, // Max zoom to cluster points on
                     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
@@ -330,7 +317,7 @@ $(document).ready(function() {
                     map.getCanvas().style.cursor = '';
                 });
                 // Cluster Layer End ------------------------
-                */
+                
 
                 
             });

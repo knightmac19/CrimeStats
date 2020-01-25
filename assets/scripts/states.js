@@ -89,15 +89,15 @@ var statesArr = [
       centerLong: -75.3042,
       zoom: 7
     },
-    {
-      capital: "Washington, D.C.",
-      state: "District of Columbia",
-      abbreviation: "D.C.",
-      population: 702455,
-      centerLat: 38.8977,
-      centerLong: -77.0365,
-      zoom: 9
-    },
+    // {
+    //   capital: "Washington, D.C.",
+    //   state: "District of Columbia",
+    //   abbreviation: "D.C.",
+    //   population: 702455,
+    //   centerLat: 38.8977,
+    //   centerLong: -77.0365,
+    //   zoom: 9
+    // },
     // FL doesn't return FBI data
     {
       capital: "Tallahassee",
