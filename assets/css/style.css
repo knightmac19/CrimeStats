@@ -12,7 +12,7 @@ body {
 .jumbotron {
     background-color:#e8956f;
     color:black;
-    margin-bottom:16px;
+    margin-bottom:0px;
 }
 .lead {
     color:black;
@@ -24,6 +24,10 @@ body {
 .text-center {
     padding-top:15px;
     padding-bottom:15px;
+    
+}
+.btn-group {
+    width:100%;
 }
 
 .content {
