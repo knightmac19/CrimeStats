@@ -21,6 +21,11 @@ body {
     border-left: 1px solid #6FC6E8;
 }
 
+.text-center {
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
 .content {
     width:100%;
     border-bottom: 2px solid #e8956f;

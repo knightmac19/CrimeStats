@@ -118,16 +118,17 @@ $(document).ready(function() {
         
         
         // mapbox API call
-        mapboxgl.accessToken = storageKey;
+        // mapboxgl.accessToken = storageKey;
             
-        // mapbox API call
-        var map = new mapboxgl.Map({
-            container: 'map', // container id
-            style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
-            center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
-            zoom: statesArr[stateValue].zoom // starting zoom
-        });
+        // // mapbox API call
+        // var map = new mapboxgl.Map({
+        //     container: 'map', // container id
+        //     style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
+        //     center: [statesArr[stateValue].centerLong, statesArr[stateValue].centerLat], // starting position [lng, lat]
+        //     zoom: statesArr[stateValue].zoom // starting zoom
+        // });
         // map
+        
         
         
         // writing FBI API call
@@ -141,43 +142,84 @@ $(document).ready(function() {
                 console.log(abbreviation + " state ---------------");
                 console.log(crime + "---------------------------------");
                 
-                
-                console.log(response);
-                
-                var queriedYear = response.data.filter(function(val) {
-                    return val.data_year === year;
-                });
-                console.log(queriedYear);
-                var finalArray = queriedYear.filter(function(val) {
-                    return val.key === "Offense Count";
-                });
-                console.log(finalArray);
-                
-
-
-
                 // set text content here
                 var crimeHeader = $("#crime-header");
+                var availableData = $("#available-data");
                 var crimeNum = $("#crime-num");
                 var perCapita = $("#crime-per-capita");
-                var natlCapita = $("#us-per-capita");
-                var rating = $("#rating");
+                // var natlCapita = $("#us-per-capita");
+                // var rating = $("#rating");
+                
 
-                crimeHeader.text(stateName + " " + year);
+                if (stateName === "Alaska" ||
+                    stateName === "California" ||
+                    stateName === "District of Columbia" ||
+                    stateName === "Florida" ||
+                    stateName === "Nevada" ||
+                    stateName === "New Jersey" ||
+                    stateName === "New York" ||
+                    stateName === "North Carolina" ||
+                    stateName === "Wyoming") {
 
-                if (crimeName === "Burglary") {
-                    crimeNum.text("Burglaries" + " numberTBD");
-
-                } else if (crimeName === "Larceny") {
-                    crimeNum.text("Larcenies" + " numberTBD");
-
-                } else if (crimeName === "Robbery") {
-                    crimeNum.text("Robberies" + " numberTBD");
-
+                        crimeHeader.text(stateName + ", " + year);
+                        crimeHeader.css("color", "white");
+                        crimeNum.text("Burglaries: N/A");
+                        perCapita.text("Burglaries per 100,000: N/A");
+                        availableData.text("Data Not Available");
                 } else {
-                    crimeNum.text(crimeName + "s" + " numberTBD");
+                    console.log(response);
+                    
+                    var firstYear = response.data[0].data_year;
+                    var lastYear = response.data[response.data.length - 1].data_year;
+                    
+                    var queriedYear = response.data.filter(function(val) {
+                        return val.data_year === year;
+                    });
+                    console.log(queriedYear);
+                    var finalArray = queriedYear.filter(function(val) {
+                        return val.key === "Offense Count";
+                    });
+                    console.log(finalArray);
+
+                    
+                    var count = parseInt(finalArray[0].value);
+                    var hundredThousand = ((count / statesArr[stateValue].population) * 100000).toFixed(2);
+
+
+
+                    
+                    
+
+                    crimeHeader.text(stateName + ", " + year);
+                    crimeHeader.css("color", "white");
+                    availableData.text("Data Available From: " + firstYear + " - " + lastYear);
+
+                    if (crimeName === "Burglary") {
+                        crimeNum.text("Burglaries: " + count);
+                        perCapita.text("Burglaries per 100,000: " + hundredThousand);
+
+                    } else if (crimeName === "Larceny") {
+                        crimeNum.text("Larcenies: " + count);
+                        perCapita.text("Larcenies per 100,000: " + hundredThousand);
+
+                    } else if (crimeName === "Robbery") {
+                        crimeNum.text("Robberies: " + count);
+                        perCapita.text("Robberies per 100,000: " + hundredThousand);
+
+                    } else {
+                        crimeNum.text(crimeName + "s: " + count);
+                        perCapita.text(crimeName + "s per 100,000: " + hundredThousand);
+                    }
+
+                    console.log(statesArr[stateValue].population);
                 }
 
+
+
+
+                
+                
+                
 
                 
 
