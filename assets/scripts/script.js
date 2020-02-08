@@ -107,15 +107,8 @@ $(document).ready(function() {
         var year = parseInt(yearString);
         var crimeName = localStorage.getItem("crimeName");
         var stateName = localStorage.getItem("stateName");
-        // console.log(year);
-        // console.log(abbreviation);
-        // console.log(crime);
-        // console.log(crimeName);
-        // console.log(stateName);
-        // https://api.usa.gov/crime/fbi/sapi/api/nibrs/larceny/offense/states/CO/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv
-        // https://api.usa.gov/crime/fbi/sapi/api/nibrs/larceny/offender/states/CO/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv
+        console.log("CRIME NAME: " + crimeName + "------------------------------------");
 
-        
         
         // mapbox API call
         mapboxgl.accessToken = storageKey;
@@ -129,11 +122,10 @@ $(document).ready(function() {
         });
         map
         
-        
-        
         // writing FBI API call
         var fbi = function(crime, abbreviation) {
-            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offense/states/" + abbreviation + "/count?API_KEY=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+            var queryURL = "https://api.usa.gov/crime/fbi/sapi/api/nibrs/" + crime + "/offense/states/" + abbreviation + "/count?API_KEY=meIOu3zceqwvneX5KMRNDvFOhQd4AeqBwHaO6ScE";
+            
 
             $.ajax({
                 url:queryURL,
@@ -153,11 +145,12 @@ $(document).ready(function() {
                 var errorMessage = function() {
                     crimeHeader.text(stateName + ", " + year);
                     crimeHeader.css("color", "white");
-                    crimeNum.text("Burglaries: N/A");
-                    perCapita.text("Burglaries per 100,000: N/A");
-                    availableData.text("Data Not Available");
+                    crimeNum.text(`${crimeName}: N/A`);
+                    perCapita.text(`${crimeName} per 100,000: N/A`);
+                    // availableData.text("Data Not Available");
                 };
-                console.log(stateName);
+
+                
                 if (stateName === "Alaska" ||
                     stateName === "California" ||
                     stateName === "District of Columbia" ||
@@ -175,13 +168,20 @@ $(document).ready(function() {
                     var lastYear = response.data[response.data.length - 1].data_year;
                     
                     var queriedYear = response.data.filter(function(val) {
-                        return val.data_year === year;
+                        if (val.data_year != year) {
+                            errorMessage();
+                            // location.reload();
+                        } else {
+                            return val.data_year === year;
+                        }
+                        
                     });
-
+                    
                     console.log(queriedYear);
                     var finalArray = queriedYear.filter(function(val) {
                         return val.key === "Offense Count";
                     });
+                    console.log("final array -----------------------------")
                     console.log(finalArray);
 
                     var count = parseInt(finalArray[0].value);
@@ -189,7 +189,7 @@ $(document).ready(function() {
 
                     crimeHeader.text(stateName + ", " + year);
                     crimeHeader.css("color", "white");
-                    availableData.text("Data Available From: " + firstYear + " - " + lastYear);
+                    // availableData.text("Data Available From: " + firstYear + " - " + lastYear);
 
                     if (crimeName === "Burglary") {
                         crimeNum.text("Burglaries: " + count);
@@ -216,18 +216,14 @@ $(document).ready(function() {
                 var clusterCrimeQuery = clusterYearQuery.filter(function(val) {
                     return val.clusterCrime === crimeName;
                 });
-                // console.log("cluster year query -----------------");
-                // console.log(clusterYearQuery);
-                // console.log("cluster crime query -----------------");
-                // console.log(clusterCrimeQuery);
-                // console.log("cluster crime query data -----------------");
-                // console.log(clusterCrimeQuery[0].clusterData);
+                
                 var finalData = clusterCrimeQuery[0].clusterData;
                 
                 // Cluster Layer Begin -------------------------------
                 map.addSource("homicides", {
                     type: "geojson",
                     // "https://knightmac19.github.io/geoJSON/homicides.geojson"
+                    
                     data: finalData,
                     cluster: true,
                     clusterMaxZoom: 14, // Max zoom to cluster points on
@@ -326,18 +322,6 @@ $(document).ready(function() {
         
         
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

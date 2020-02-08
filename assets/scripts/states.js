@@ -10,13 +10,7 @@
 */
 
 var statesArr = [
-  // {
-  //   state: "All",
-  //   populaton: 327167434,
-  //   centerLat:39.5,
-  //   centerLong:-98.35,
-  //   zoom:3
-  // },
+  
     {
       capital: "Montgomery",
       state: "Alabama",
@@ -89,15 +83,6 @@ var statesArr = [
       centerLong: -75.3042,
       zoom: 7
     },
-    // {
-    //   capital: "Washington, D.C.",
-    //   state: "District of Columbia",
-    //   abbreviation: "D.C.",
-    //   population: 702455,
-    //   centerLat: 38.8977,
-    //   centerLong: -77.0365,
-    //   zoom: 9
-    // },
     // FL doesn't return FBI data
     {
       capital: "Tallahassee",
@@ -168,7 +153,8 @@ var statesArr = [
       capital: "Topeka",
       state: "Kansas",
       abbreviation: "KS",
-      lat: 39.04,      population: 2911505,
+      lat: 39.04,
+      population: 2911505,
       centerLat: 38.299,
       centerLong: -98.419,
       zoom: 5
@@ -419,7 +405,8 @@ var statesArr = [
       capital: "Austin",
       state: "Texas",
       abbreviation: "TX",
-      lat: 30.266667,      population: 28701845,
+      lat: 30.266667,
+      population: 28701845,
       centerLat: 31.232952,
       centerLong: -99.101434,
       zoom: 5
@@ -446,7 +433,8 @@ var statesArr = [
       capital: "Richmond",
       state: "Virginia",
       abbreviation: "VA",
-      lat: 37.54,      population: 8517685,
+      lat: 37.54,
+      population: 8517685,
       centerLat: 37.293,
       centerLong: -78.338,
       zoom: 5
@@ -490,3 +478,6 @@ var statesArr = [
     }
     // Wyoming doesn't return FBI data
 ]
+
+
+// module.exports = statesArr;
