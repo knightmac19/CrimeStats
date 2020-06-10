@@ -3,8 +3,12 @@ $(document).ready(function() {
     var crimeValue;
     var stateValue;
 
-    var storageKey = localStorage.getItem("mapboxToken");
-    console.log(storageKey);
+    
+
+    var crimeStatsRestrictURL = "pk.eyJ1Ijoia25pZ2h0bWFjMTkiLCJhIjoiY2tiOG9qOWd6MDY0bTJ4cnNreTZrOXpuOSJ9.uEbMuSFzoARWzDAen95-PA";
+    var storageKey = crimeStatsRestrictURL;
+    // var storageKey = localStorage.getItem("mapboxToken");
+    // console.log(storageKey);
     
     // if there's something in local storage, hide input bar & add text line
     if (storageKey != null) {
@@ -12,7 +16,7 @@ $(document).ready(function() {
         var p = $("<p>").text("Mapbox Ready!");
         p.addClass("lead");
         $(".token-col").append(p);
-    } 
+    }; 
     
     // setting key in storage & reloading page on 'enter'
     $("#mapbox-token").keyup(function(event) {
@@ -136,7 +140,7 @@ $(document).ready(function() {
                 
                 // set text content here
                 var crimeHeader = $("#crime-header");
-                var availableData = $("#available-data");
+                // var availableData = $("#available-data");
                 var crimeNum = $("#crime-num");
                 var perCapita = $("#crime-per-capita");
                 // var natlCapita = $("#us-per-capita");
@@ -164,8 +168,8 @@ $(document).ready(function() {
                 } else {
                     console.log(response);
                     
-                    var firstYear = response.data[0].data_year;
-                    var lastYear = response.data[response.data.length - 1].data_year;
+                    // var firstYear = response.data[0].data_year;
+                    // var lastYear = response.data[response.data.length - 1].data_year;
                     
                     var queriedYear = response.data.filter(function(val) {
                         if (val.data_year != year) {

@@ -47,15 +47,15 @@ var statesArr = [
       centerLong: -92.181,
       zoom: 5
     },
-    {
-      capital: "Sacramento",
-      state: "California",
-      abbreviation: "CA",
-      population: 39557045,
-      centerLat: 37.958,
-      centerLong: -119.2658,
-      zoom: 4
-    },
+    // {
+    //   capital: "Sacramento",
+    //   state: "California",
+    //   abbreviation: "CA",
+    //   population: 39557045,
+    //   centerLat: 37.958,
+    //   centerLong: -119.2658,
+    //   zoom: 4
+    // },
     {
       capital: "Denver",
       state: "Colorado",
@@ -480,4 +480,4 @@ var statesArr = [
 ]
 
 
-// module.exports = statesArr;
+module.exports = statesArr;
