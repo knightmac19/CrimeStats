@@ -7,22 +7,20 @@ https://knightmac19.github.io/CrimeStats/
 As a consumer looking for a new state to move to, I want to know what crime is like in each state so I can choose a relatively safe state.
 
 ### Usage
-Users must input a valid Mapbox API key (which will be stored on their machine for future sessions). Users may then choose the state, crime, and year before generating a map populated with relatively-sized crime bubbles
+Users choose a desired state, crime, and year from dropdown lists before generating a map populated with relatively-sized bubbles for each state.
 
 ### Screenshot
-![alt text](https://github.com/knightmac19/employee-directory-pmd/blob/master/public/empDirScreenshot.png)
+![alt text](https://github.com/knightmac19/CrimeStats/blob/master/assets/images/crimeStatsScreenshot.jpg)
 
 ### Technologies Used
-- React 
-- JSX
-- Node
-- Axios 
-- Randomuser.me/api
-- CSS 
+- HTML
+- CSS
+- jQuery
+- AJAX
+- FBI National Incident-Based Reporting System API
+- Mapbox API 
 - Javascript
 
 ### Resources / Collaborators
-- https://github.com/zrosensohn
-
-- https://www.florin-pop.com/blog/2019/07/sort-table-data-with-react/
+- https://github.com/nickjm6
 
